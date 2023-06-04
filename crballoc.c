@@ -434,7 +434,7 @@ void *malloc(size_t size) {
     return to_return;
 }
 
-void mm_free(void *ptr) {
+void free(void *ptr) {
     BlockHeader *const bh = header_from_data(ptr);
     DEBUG_PRINTF("free(%p), [size %zu]\n", ptr, data_size(bh->size_flags));
     DEBUG_EXECUTE(check_heap());
