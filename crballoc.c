@@ -32,6 +32,8 @@
  * Conditional compilation options are available:
  * - To include sanitization checks, compile with `DEBUG` defined.
  * - To include printouts on allocation, compile with `VERBOSE` defined.
+ *
+ * This file must be linked such that the symbol `__heap_base` is exported as the base of the heap.
  */
 
 #include <assert.h>
@@ -206,12 +208,12 @@ static FreeHeader *rb_root = NULL;
  * The base of the heap.
  * Will be defined by the compiler.
  */
-extern char __HeapBase[];
+extern char __heap_base;
 
 /**
  * A pointer to the first block in the heap.
  */
-#define FIRST_BLOCK ((BlockHeader *)__HeapBase)
+#define FIRST_BLOCK ((BlockHeader *)&__heap_base)
 
 /**
  * The last (highest-pointer) block that has been allocated.
