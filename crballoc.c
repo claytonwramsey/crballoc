@@ -461,7 +461,7 @@ void free(void *ptr) {
     }
 
     // look left
-    if (bh != &__HeapBase) {
+    if (bh != FIRST_BLOCK) {
         Footer *const prev_bf = (Footer *)((char *)bh - sizeof(Footer));
         if (!is_allocated(prev_bf->size_flags)) {
             FreeHeader *const prev_fh =
