@@ -284,7 +284,7 @@ static inline void rb_add(FreeHeader *node);
 /**
  * Delete `node` from the free tree.
  */
-static inline void rb_delete(FreeHeader *node);
+static void rb_delete(FreeHeader *node);
 
 /**
  * Helper function for deleting from red-black trees.
@@ -665,7 +665,7 @@ static inline void rb_add(FreeHeader *node) {
     // node is now the root and red and the tree is fixed up
 }
 
-static inline void rb_delete(FreeHeader *const node) {
+static void rb_delete(FreeHeader *const node) {
     FreeHeader *const left_child = node->children[LEFT];
     FreeHeader *const right_child = node->children[RIGHT];
 
