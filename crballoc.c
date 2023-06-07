@@ -383,10 +383,11 @@ void *malloc(size_t size) {
             to_return = &bh->data_start;
         } else {
             // take over the rightmost block in the heap, and then grow it until it has enough space
-            rb_delete((FreeHeader *)last_block);
             // will not overflow since `last_block` was not a fit
             if (sbrk(asize - data_size(last_block->size_flags)) == SBRK_ERROR)
                 return NULL;
+
+            rb_delete((FreeHeader *)last_block);
             last_block->size_flags = asize | 0x1;
             find_footer(last_block)->size_flags = last_block->size_flags;
             DEBUG_ASSERT(data_size(last_block->size_flags) >= asize);
